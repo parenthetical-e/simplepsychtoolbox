@@ -1,5 +1,4 @@
 function paint_coaster(stim_params,window,coords,colors),
-	%% Present Disk
 	% We use the fact that sin(x) has 1 cycle every 2*pi pixels.  That
 	% means that sin(k*x) has k cycles every 2*pi pixels.  
 	% Using a conversion factor of stim_pixels/visual_angle_in_degrees 
