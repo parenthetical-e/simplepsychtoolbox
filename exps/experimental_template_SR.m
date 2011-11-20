@@ -17,30 +17,36 @@ function experiment_template_SR(exp_file_name),
 % that triallist.  These two functions could, of course, easily be 
 % combined in a batch script.
 
-
 	%% USER DEFINITIONS %%
-	dbug = 0;
+	dbug = 1;
 		% Turn it on for useful debugging things
-	img_dir = '../imgs';
+	img_dir = './imgs/';
 		% where are the images files
 	accept_resps = ['q' 'w'];
+	max_time = 2;
 	%% --------------- %%
 
-	try,
-		[cond, stimset, corr_resps] = textread(exp_file_name,'% i%s %s');
-	catch,
-		error(['Could not load ' exp_file_name]);
-	end
+	[window,screenRect,colors] = screen_init(dbug);
+	% Screen is now up and running.
+	% If debug, the Screen will occupy only 
+	% the top-left 600 pixels.
+	% window is the pointer; screenRect the 
+	% monitors [dimensions]; {colors} are Screen
+	% compatible [R G B] colors.
+	% Default color names: white,gray,int,black,red,green.
+	% Access example: colors.black
+
+	[cond, stimset, corr_resps] = textread(exp_file_name,'%u %s %s');
 
 	data_file_name = ['data_' exp_file_name]
 	if exist(data_file_name, 'file'),
-		disp(['Deleting' data_file_name]);
+		disp(['Deleting ' data_file_name]);
 		delete(data_file_name);
 	end
 	fid = fopen(data_file_name,'a+');
 		% create filehandle
 
-	img_data = preload_images(img_dir);
+	images_data = preload_images(img_dir);
 		% Preload all imread() compatible files
 		% into a stuct suited for use with 
 		% paint_image().
@@ -51,16 +57,6 @@ function experiment_template_SR(exp_file_name),
 		% in RAM preventing slow unreliable disk 
 		% access during the trial loop.  This is good.
 	
-	[window,screenRect,colors] = screen_init(dbug);
-	 	% Screen is now up and running.
-		% If debug, the Screen will occupy only 
-		% the top-left 400 pixels.
-		% window is the pointer; screenRect the 
-		% monitors [dimensions]; {colors} are Screen
-		% compatible [R G B] colors.
-		% Default color names: white,gray,int,black,red,green.
-		% Access example: colors.black
-	
 	coords = define_coords(window,screenRect);
 		% Find many coordinate parameters needed
 		% to draw on Screen, and use paint_coaster(),
@@ -69,9 +65,10 @@ function experiment_template_SR(exp_file_name),
 		% image display parameter catcahall
 	
 	msg = ['Welcome to science time!'];
-	write_msg(5,msg,30,window,coords,colors);
-		% Welcome them in 30 pt font
-		% (or say something useful instead).
+	write_msg(5,msg,30,-150,0,window,coords,colors);
+		% Welcome them in 30 pt font with the text x offset
+		% to the left by 150 pixels.
+		% Or say something useful instead....
 	
 	write_countdown(5,window,coords,colors);
 		% Display a counter informing Ss the experiment will
@@ -81,47 +78,47 @@ function experiment_template_SR(exp_file_name),
 		% needed for break_time, as it relies on toc.
 
 	%% AND BEGIN THE EXPERIMENT...
-	for ii in size(stimset,1),
+	for ii=1:size(stimset,1),
 		img_name = stimset{ii}
 		corr_resp = corr_resps{ii} 
 
 		break_time(60,10,window,coords,colors);
 			% Take a 60 second break every ~10 minutes
 		
-		paint_fixation(1,window,coords,colors);
-			% Fixation cross for 1 second
-
 		%%%%%%%%
 		%% In total, this controls how long the stimulus appears,
 		%% you want paint_image() to have zero n_secs
 		%% so responses can be detected (w get_resp())
 		%% while the stim is up.
-		[VBLTimestamp onset_time] = paint_image(...
-				img_name,images_data,0,window,coords,colors);
+		[VBLTimestamp, onset_time] = paint_image(...
+				img_name,images_data,window,coords,colors);
 		[acc,rt,resp] = get_resp(...
-				corr_resp,accept_resps,onset_time,2);
-					% Waits up to 2 seconds for a response
+				corr_resp,accept_resps,onset_time,max_time);
+					% Waits up to max_time seconds for a response
 
-		%% Controls stim presentation time.
+		%% Controls stim presentation time, once a 
+		%% response has been detected, the stim disappears
 		dtime = rt;
 		if rt == 0,
 			dtime = max_time;
 				% Correct for the fact rt can be 0
 		end
-		WaitSecs(max_time - dtime + 0.5);
+		
+		paint_nothing(1,window,coords,colors);
+			% Feedbak delay is 1 seconds
+		%%%%%%%%
+
+		write_color_feedback(2,acc,rt,window,coords,colors)
+			% In 30 pt font, display 'Correct' (in green), 
+			% or 'Incorrect' (red) or 'No response detected' 
+			% (black) for 2 seconds.
+		
+		%% Fixation cross for long enough so trials are all
+		%% the same length
+		paint_fixation((max_time - dtime + 0.5),window,coords,colors);
 			% By comparing max_time to rt plus a constant 
 			% (so there is a delay when they fail to respond),
 			% each trial takes the same time.
-		%%%%%%%%
-
-		paint_nothing(0.5,window,coords,colors);
-			% Feedback delay, an empty gray 
-			% screen for 0.5 seconds
-		
-		write_verbal_feedback(2,acc,rt,window,coords,colors)
-			% In black 50 pt font, display 'Correct', 
-			% or 'Incorrect' or 'No response detected' 
-			% for 2 seconds.
 
 		%% Unfortuantly matlab is crap at writing
 		%% mixed data types by columm.  We have to 

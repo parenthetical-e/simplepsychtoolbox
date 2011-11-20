@@ -6,7 +6,7 @@ function break_time(n_sec,interval,window,coords,colors),
 
 	if (toc/60) > interval,
 		msg = 'Break time!  The break is over when the timer reaches 0.';
-		write_msg(5,msg,40,window,coords,colors)
+		write_msg(5,msg,14,0,0,window,coords,colors)
 			% Give them 5 seconds to to read it....
 		write_countdown(n_sec,window,coords,colors)
 		tic 
