@@ -2,7 +2,7 @@ function [coords] = define_coords(window,screenRect)
 
 	%global window screenRect white black grey xc yc meshX meshY circlespace correct incorrect wrong_key  stim_pixels visual_angle_in_degrees dist_to_screen_cm
 
-	coords = {} % a struct is made
+	coords = {}; % a struct is made
 	
 	coords.visual_angle_in_degrees = 6; 
 	coords.dist_to_screen_cm = 76;
@@ -37,7 +37,6 @@ function [coords] = define_coords(window,screenRect)
 			end
 	   end
 	end
-	%[meshX,meshY] = meshgrid(1:h,1:h);
-
+	[coords.meshX,coords.meshY] = meshgrid(1:h,1:h);
 	coords.circlespace = circlespace;
 end

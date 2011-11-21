@@ -23,5 +23,4 @@ function [images_data] = preload_images(img_dir_name),
 			continue;
 		end
 	end
-	images_data
 end

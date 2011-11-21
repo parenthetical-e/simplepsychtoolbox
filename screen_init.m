@@ -34,12 +34,10 @@ function [window,screenRect,colors] = screen_init(dbug),
 	colors = {};
 	colors.white = WhiteIndex(window);
 	colors.black = BlackIndex(window);
-	colors.grey = [(colors.white+colors.black)/2 ...
-			(colors.white+colors.black)/2 (colors.white+colors.black)/2];
-	colors.int = colors.white-colors.grey
-	colors.red = [160 25 29]
-	colors.green = [59 174 60]
-	blk = BlackIndex(window)
+	colors.grey = (colors.white+colors.black)/2;;
+	colors.inc = colors.white-colors.grey;
+	colors.red = [160 25 29];
+	colors.green = [59 174 60];
 	Screen('FillRect',window,colors.grey);
 	Screen('Flip', window);
 		% Start screen with a grey background

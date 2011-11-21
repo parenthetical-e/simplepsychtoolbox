@@ -1,4 +1,11 @@
-function paint_coaster(stim_params,window,coords,colors),
+function [VBLTimestamp onset_time] = paint_coaster(stim_params,n_sec,window,coords,colors),
+
+	x = coords.meshX;
+	y = coords.meshY;
+
+	% This code, and the parameter files needed for drawing of sinusoidal
+	% gratings (i.e. coasters) was kindly provided by Brian Speiring.
+
 	% We use the fact that sin(x) has 1 cycle every 2*pi pixels.  That
 	% means that sin(k*x) has k cycles every 2*pi pixels.  
 	% Using a conversion factor of stim_pixels/visual_angle_in_degrees 
@@ -17,11 +24,12 @@ function paint_coaster(stim_params,window,coords,colors),
 	g = sind(orientation_angle);
 	h = cosd(orientation_angle);
 	wave=sind((g*x+h*y)*k);
-
+	
 	% Draw the disc
-	disc = (coords.circlespace).*wave;
-	Screen('FillRect',window,colors.gray);
-	screen('PutImage',window,(colors.gray+colors.inc)*disc);
-	Screen('Flip', window);
+	disc = coords.circlespace.*wave;
+	Screen('FillRect',window,colors.grey);
+	screen('PutImage',window,colors.grey+colors.inc*disc);
+	[VBLTimestamp onset_time] = Screen('Flip', window);
 	Screen('Close');
+	WaitSecs(n_sec);
 end
