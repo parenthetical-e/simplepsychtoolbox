@@ -12,8 +12,8 @@ function write_color_msg(n_sec,msg,fontsize,xoff,yoff,window,coords,color_param)
 %  window,coords: standard Screen() variables.
 %  color_param: the color of the message (from colors).
 
-	screen('TextSize', window, fontsize);
-	screen('DrawText', window, msg,...
+	Screen('TextSize', window, fontsize);
+	Screen('DrawText', window, msg,...
 			coords.xc+xoff, coords.yc+yoff,color_param);
 	Screen('Flip', window);
 	Screen('Close');

@@ -87,7 +87,7 @@ function experiment_template_II(exp_file_name),
 		%% so responses can be detected (w get_resp())
 		%% while the stim is up.
 		[VBLTimestamp, onset_time] = paint_coaster(...
-				0,coaster_params,0,window,coords,colors);
+				0,coaster_params,window,coords,colors);
 		[acc,rt,resp] = get_resp(...
 				corr_resp,accept_resps,onset_time,max_time);
 					% Waits up to max_time seconds for a response
@@ -104,7 +104,7 @@ function experiment_template_II(exp_file_name),
 			% Feedbak delay is 1 seconds
 		%%%%%%%%
 
-		write_color_feedback(2,acc,rt,window,coords,colors);
+		write_verbal_feedback(2,acc,rt,window,coords,colors);
 			% In 30 pt font, display 'Correct' (in green), 
 			% or 'Incorrect' (red) or 'No response detected' 
 			% (black) for 2 seconds.
