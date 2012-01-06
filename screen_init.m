@@ -1,6 +1,16 @@
 function [window,screenRect,colors] = screen_init(dbug),
-% This script does many (hopefully all) the common things needed 
-% to initialize any psychtoolbox/Screen session.
+% This script does many (hopefully all) the common things needed to initialize any psychtoolbox/Screen session.
+%
+% Call early in an experimental setup.
+%
+% IN
+%  dbug: If 1, the Screen is only 600 x 600.
+%
+% OUT
+%  window: the window pointer, needed to do anything with Screen
+%  screenRect: the size of the Screen (in pixels)
+%  colors: color definitions, see code for details.
+
 
 	clc;
 	close all;

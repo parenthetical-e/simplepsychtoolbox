@@ -1,4 +1,16 @@
-function [VBLTimestamp onset_time] = paint_coaster(stim_params,n_sec,window,coords,colors),
+function [VBLTimestamp onset_time] = paint_coaster(n_sec,stim_params,window,coords,colors),
+% Paints a parametric black and white sinusoidal grating on the Screen.
+% 
+% [VBLTimestamp onset_time] = paint_coaster(n_sec,stim_params,window,coords,colors);
+%
+% IN
+%  n_sec: how long in seconds it is onscreen.
+%  stim_params: parameters for the grating
+%  window,coords,colors: standard Screen() variables.
+% 
+% OUT
+%  VBLTimestamp: ?
+%  onset_time: the time in seconds when the coasters was intially painted.
 
 	x = coords.meshX;
 	y = coords.meshY;

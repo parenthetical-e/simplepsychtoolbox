@@ -1,18 +1,21 @@
-function write_color_feedback(n_secs,acc,rt,window,coords,colors),
-% Writes color coded verbal feedback to the Screen (e.g. 'Correct!', in green).
+function write_monetary_feedback(n_secs,acc,rt,gain,lose,window,coords,colors),
+% Writes color coded monetary feedback to the Screen (e.g. 'Gain $1', in green).
 %
-% write_color_feedback(n_secs,acc,rt,window,coords,colors);
+% write_monetary_feedback(n_secs,acc,rt,gain,lose,window,coords,colors);
 %
 % IN
 %  n_secs: how long are the words oncreen (seconds)
 %  acc: accuracy, {0,1}
 %  rt: Reaction time (seconds; float)
+%  gain: amount for wins (float)
+%  lose: amount for losses (float)
 %  window,coords,colors: standard Screen() variables.
+
 
 	msg = 'Feedback error.';
 	col = colors.black;
 	if acc,
-		msg = 'Correct!';
+		msg = ['Gain $', num2str(gain)];
 		col = colors.green;
 	elseif rt == 0,
 		msg = 'No response detected.';
@@ -20,7 +23,7 @@ function write_color_feedback(n_secs,acc,rt,window,coords,colors),
 			% rt is zero *only* when no keypress
 			% was detected.
 	else,
-		msg = 'Incorrect!';
+		msg = ['Lose $', num2str(lose)];
 		col = colors.red;
 	end
 	write_color_msg(n_secs,msg,40,col,-100,0,window,coords);

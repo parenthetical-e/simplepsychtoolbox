@@ -91,7 +91,7 @@ function experiment_template_SR(exp_file_name),
 		%% so responses can be detected (w get_resp())
 		%% while the stim is up.
 		[VBLTimestamp, onset_time] = paint_image(...
-				img_name,images_data,window,coords,colors);
+				0,img_name,images_data,window,coords,colors);
 		[acc,rt,resp] = get_resp(...
 				corr_resp,accept_resps,onset_time,max_time);
 					% Waits up to max_time seconds for a response
@@ -130,5 +130,6 @@ function experiment_template_SR(exp_file_name),
 		fprintf(fid,'%f\t',rt);
 		fprintf(fid,'%s\n',resp); 		
 	end
-	screen_close(fid);
+	fclose(fid);
+	screen_close();
 end

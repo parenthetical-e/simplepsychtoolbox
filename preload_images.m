@@ -1,6 +1,5 @@
 function [images_data] = preload_images(img_dir_name),
-	%% Prereads all the files in img_dir_name into 
-	%% a struct named images_data; 
+% Prereads all the files in img_dir_name into a struct named images_data.
 	
 	file_names = dir([img_dir_name]);
 		% Get all the files

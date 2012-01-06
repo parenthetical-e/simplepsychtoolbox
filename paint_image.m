@@ -1,4 +1,17 @@
-function [VBLTimestamp onset_time] = paint_image(img_name,images_data,window,coords,colors),
+function [VBLTimestamp onset_time] = paint_image(n_secs,img_name,images_data,window,coords,colors),
+% Paints an image on the Screen (e.g. moocow.jpeg).
+% 
+% [VBLTimestamp onset_time] = paint_image(n_secs,img_name,images_data,window,coords,colors);
+%
+% IN
+%  n_sec: how long in seconds it is onscreen.
+%  img_name: the name of the image
+%  images_data: the image data, from preload_images().
+%  window,coords,colors: standard Screen() variables.
+% 
+% OUT
+%  VBLTimestamp: ?
+%  onset_time: the time in seconds when the image was intially painted.
 
 	stim = Screen('MakeTexture', window,...
 			images_data.(genvarname(img_name)));
@@ -8,4 +21,5 @@ function [VBLTimestamp onset_time] = paint_image(img_name,images_data,window,coo
 		% different destination:
 
 	[VBLTimestamp onset_time]=Screen('Flip', window);
-	Screen('Close')
+	WaitSecs(n_secs);
+	Screen('Close');

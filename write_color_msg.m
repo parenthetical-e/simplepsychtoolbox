@@ -1,7 +1,17 @@
-function write_color_msg(n_sec,msg,fontsize,color_param,xoff,yoff,window,coords),
-% Present msg for n_sec in fontsize font with the text offset by
-% xoff and yoff in color color_param (from the colors struct define
-% by screen_init().
+function write_color_msg(n_sec,msg,fontsize,xoff,yoff,window,coords,color_param),
+% Write a colored message on Screen.
+%
+% write_color_msg(n_sec,msg,fontsize,xoff,yoff,window,coords,color_param);
+% 
+% IN
+%  n_sec: time to display in seconds.
+%  msg: what to write (a character array, e.g. ['Hello World']).
+%  fontsize: ...
+%  xoff: x offset in pixels
+%  yoff: y offset in pixels
+%  window,coords: standard Screen() variables.
+%  color_param: the color of the message (from colors).
+
 	screen('TextSize', window, fontsize);
 	screen('DrawText', window, msg,...
 			coords.xc+xoff, coords.yc+yoff,color_param);

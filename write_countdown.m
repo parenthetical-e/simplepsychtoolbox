@@ -1,5 +1,12 @@
 function write_countdown(n_sec,window,coords,colors),
-	%% Print seconds till start...
+% A counter, writing seconds till start.
+%
+% write_countdown(n_sec,window,coords,colors);
+%
+% IN
+%  n_sec: length of countdown.
+%  window,coords,colors: standard Screen() variables.
+
 	for s_cnt=1:n_sec
 		s = (n_sec + 1) - s_cnt;
 

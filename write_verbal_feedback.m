@@ -1,4 +1,14 @@
 function write_verbal_feedback(n_secs,acc,rt,window,coords,colors),
+% Writes verbal feedback to the Screen (e.g. 'Correct!').
+%
+% write_verbal_feedback(n_secs,acc,rt,window,coords,colors);
+%
+% IN
+%  n_secs: how long are the words oncreen (seconds)
+%  acc: accuracy, {0,1}
+%  rt: Reaction time (seconds; float)
+%  window,coords,colors: standard Screen() variables.
+
 	msg = 'Feedback error.';
 	if acc,
 		msg = 'Correct!';

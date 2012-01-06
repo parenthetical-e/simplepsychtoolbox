@@ -87,7 +87,7 @@ function experiment_template_II(exp_file_name),
 		%% so responses can be detected (w get_resp())
 		%% while the stim is up.
 		[VBLTimestamp, onset_time] = paint_coaster(...
-				coaster_params,0,window,coords,colors);
+				0,coaster_params,0,window,coords,colors);
 		[acc,rt,resp] = get_resp(...
 				corr_resp,accept_resps,onset_time,max_time);
 					% Waits up to max_time seconds for a response
@@ -135,10 +135,11 @@ function experiment_template_II(exp_file_name),
 			msg = ['You met the learning crierion...good dog!'];
 			write_msg(5,msg,30,-150,0,window,coords,colors);
 
-			disp(['Criterion was met, ending cleanly.'])
+			disp(['Criterion was met, ending cleanly.']);
 			screen_close(fid);
 			return;
 		end
 	end
-	screen_close(fid);
+	fclose(fid);
+	screen_close();
 end

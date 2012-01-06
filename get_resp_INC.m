@@ -1,12 +1,24 @@
 function [acc,rt,resp] = get_resp_INC(corr_resp,acceptable_resps,onset_time,max_time),
-	%% A special response collection function for 
-	%% the Intermountain Neuroimaging Consortium (INC) facility
-	%% at U.C. Boulder
+% Detect acceptable single key presses from the INC response box, sampling every 0.001 seconds.
+%
+%  [acc,rt,resp] = get_resp_INC(corr_resp,acceptable_resps,onset_time,max_time);
+%
+% IN
+%  corr_resp: the right answer, a character (e.g '1').
+%  acceptable_resps: a character array of valid responses (e.g. ['1' '2']]).
+%  onset_time: typically responses are timed from a stimulus onset,
+% 		this is the time that stimulus happend.  Or use GetSecs;.
+%  max_time: how long in seconds should the function wait for a response, 
+%		a float.
+% OUT
+%  acc: accuracy - {0,1}
+%  rt: Reaction time in seconds (float).
+%  resp: The response, a character
+% 
+% This is a special response collection function for the Intermountain 
+% Neuroimaging Consortium (INC) facility at U.C. Boulder.  It works
+% around limitations of that system.
 
-	%% Wait for a response from the keyboard,
-	%% sampling ever 0.001 seconds, once detected 
-	%% is compared to against acceptable_resps
-	%% and corr_resp
 
 	rt = 0;  
 		% an rt of exactly 0 is meaningful/special

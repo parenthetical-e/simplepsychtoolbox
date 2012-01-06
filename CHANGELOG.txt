@@ -1,0 +1,13 @@
+# 1-3-2011, EJP #
+- Consistent with write_*, all paint_* functions now require a n_secs time-of-display as a first arguement.  Before either no time was needed or it was not the first argument.
+- Removed the fid (file handle) arguement to screen_close(); obviously not all experiments will open a filehandle so requiring one at the end is siily.  File handles should just be handled explicitly, as is proper anyway.
+- Changed write_color_msg() so the color_param is provided at the end instead of in the middle.  All the other commands specify color(s) at the end.
+
+# 1-5-2011, EJP #
+- Documentation was greatly improved. Comments at the start of each file are now compatible with 'help' and 'contentsrpt'.
+- write_monetary_feedback() now requires seperate args for gains and losses
+- all paint_* now return onset timing information; write_* still do not though
+this may change.
+- Added log_time, ttl_release_INC, get_resp_INC, write_monetary_feedback
+- Now see Contents.m for a summary of available functions and their purpose.
+

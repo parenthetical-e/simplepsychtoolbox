@@ -1,6 +1,7 @@
 function [coords] = define_coords(window,screenRect)
-
-	%global window screenRect white black grey xc yc meshX meshY circlespace correct incorrect wrong_key  stim_pixels visual_angle_in_degrees dist_to_screen_cm
+% Defines a coordinate system for paint_coasters(); window and screenRect come from screen_init().
+%
+% [coords] = define_coords(window,screenRect)
 
 	coords = {}; % a struct is made
 	
