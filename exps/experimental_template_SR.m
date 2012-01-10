@@ -23,7 +23,7 @@ function experiment_template_SR(exp_file_name),
 	img_dir = './imgs/';
 		% where are the images files
 	accept_resps = ['q' 'w'];
-	max_time = 2;
+	max_time_resp = 2;
 	%% --------------- %%
 
 	[window,screenRect,colors] = screen_init(dbug);
@@ -93,14 +93,14 @@ function experiment_template_SR(exp_file_name),
 		[VBLTimestamp, onset_time] = paint_image(...
 				0,img_name,images_data,window,coords,colors);
 		[acc,rt,resp] = get_resp(...
-				corr_resp,accept_resps,onset_time,max_time);
-					% Waits up to max_time seconds for a response
+				corr_resp,accept_resps,onset_time,max_time_resp);
+					% Waits up to max_time_resp seconds for a response
 
 		%% Controls stim presentation time, once a 
 		%% response has been detected, the stim disappears
 		dtime = rt;
 		if rt == 0,
-			dtime = max_time;
+			dtime = max_time_resp;
 				% Correct for the fact rt can be 0
 		end
 		
@@ -115,8 +115,8 @@ function experiment_template_SR(exp_file_name),
 		
 		%% Fixation cross for long enough so trials are all
 		%% the same length
-		paint_fixation((max_time - dtime + 0.5),window,coords,colors);
-			% By comparing max_time to rt plus a constant 
+		paint_fixation((max_time_resp - dtime + 0.5),window,coords,colors);
+			% By comparing max_time_resp to rt plus a constant 
 			% (so there is a delay when they fail to respond),
 			% each trial takes the same time.
 
