@@ -13,6 +13,7 @@ function [window,screenRect,colors] = screen_init(dbug),
 
 
 	clc;
+	clear mex;
 	close all;
 		% clears the workspace
 	rand('seed',sum(100*clock));

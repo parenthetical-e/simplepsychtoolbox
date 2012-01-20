@@ -33,23 +33,22 @@ function [acc,rt,resp] = get_resp_INC(corr_resp,acceptable_resps,onset_time,max_
 	%% an acceptable_response.  This is not ideal
 	%% but I can't find a way to test for resp changing from its
 	%% (non-empty but char) default value to something else.
+	start_time = GetSecs;
 	stop_time = onset_time + max_time;
 	while GetSecs < stop_time,
-		FlushEvents;
-		start_time = GetSecs;
-		resp = GetChar;
-		elapsed_time = GetSecs - start_time;
-		if strfind(acceptable_resps, resp),
-			rt = elapsed_time;
-				% if the response is acceptable, 
-				% rt takes on a non-zero value
-			if strmatch(resp,corr_resp),
-				acc = 1;
+		if CharAvail,
+			resp = GetChar;
+			if strfind(acceptable_resps, resp),
+				rt = GetSecs - onset_time;
+					% if the response is acceptable, 
+					% rt takes on a non-zero value
+				if strmatch(resp,corr_resp),
+					acc = 1;
+				end
+				break;
 			end
-			break;
 		end
 		WaitSecs(.001); 
 			% limits the polling rate
 	end
 end
-

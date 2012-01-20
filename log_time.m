@@ -1,4 +1,4 @@
-function log_time(fid,comment,mode),
+function log_time(fid,comment),
 % Logs the the current time (in seconds) and a comment.
 % 
 % IN
@@ -6,6 +6,6 @@ function log_time(fid,comment,mode),
 % 	comment: a character array that will be written with the time.
 % 	mode: determines whether the write is 'async' or 'sync', see fprintf().
 
-	fprintf(fid,'%f\t',GetSecs,mode);
-	fprintf(fid,'%s\n',comment,mode);
+	fprintf(fid,'%s\t',num2str(GetSecs));
+	fprintf(fid,'%s\n',comment);
 end

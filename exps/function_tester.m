@@ -1,4 +1,4 @@
-function function_tester()
+function function_tester(),
 % Do just the bare number of things needed to get Screen up and running.
 %
 % When learning to use these Screen() interface functions it may be useful to
@@ -17,29 +17,49 @@ function function_tester()
 	% TEST FUNCTION GOES HERE.
 	
 	% For example,
-	% First the define the function specfic arguements (i.e. variables)
-	msg = 'This is a fun and comfortable place to test.  I love Erik.';
-	n_sec = 10;
+	% first define the variables,
+	msg = 'This is a fun and comfortable place to test.';
+	n_sec = 2;
 	fontsize = 16;
 	xoff = -200;
 	yoff = 0;
-
-	% Then call the function.
-	write_msg(n_sec,msg,fontsize,xoff,yoff,window,coords,colors);
-	% Writes 'This is a fun and comfortable place to test.  I love Erik.' 
-	% onto the screen for 10 seconds (n_sec) in size 16 font
-	% with the text moved left 200 pixels so it sits in the center 
-	% of the screen.
-	% 
-	% To undersand how this funtion works try changing the variables above,
-	% preferably one at a time (e.g. what happens if you set xoff to 0
-	% instead.).
-	% 
-	% For berevity's sake this would have done the same thing 
-	% (exception is that the 'Brevity!' is printed instead):
-	% write_msg(10,'Brevity!',16,-200,0,window,coords,colors);
 	
+	% Using try so when something goes wrong in your testinf
+	% Screen etc can be cleaned up
+	try,
+		write_msg(n_sec,msg,fontsize,xoff,yoff,window,coords,colors);
+			% Writes 'This is a fun and comfortable place to test.' 
+			% onto the screen for 10 seconds (n_sec) in size 16 font
+			% with the text moved left 200 pixels so it sits in the center 
+			% of the screen.
+			% 
+			% To undersand how this funtion works try changing the variables 
+			% above preferably one at a time (e.g. what happens if you set 
+			% xoff to 0 instead.).
+			% 
+			% For berevity's sake this would have done the same thing 
+			% (exception is that the 'Brevity!' is printed instead):
+			% write_msg(10,'Brevity!',16,-200,0,window,coords,colors);
+	catch err,
+		disp('Dying gracefully...');
+		screen_close();
+		rethrow(err);
+	end
+
 	%% ------------------- %%
+	
+	% Or for ttl testing instead use:
+	% try,
+	% 	% then call the function.
+	% 	fid = fopen('test','a+');
+	% 	write_msg(0,'Hit 5',fontsize,xoff,yoff,window,coords,colors);
+	% 	ttl_release_INC(fid,'HIT',0);
+	% 	write_msg(n_sec,msg,fontsize,xoff,yoff,window,coords,colors);
+	% catch,
+	% 	disp('Dying gracefully...');
+	% 	fclose(fid);
+	% 	screen_close();
+	% end
 	
 	screen_close();
 end

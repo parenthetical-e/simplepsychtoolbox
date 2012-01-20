@@ -8,5 +8,6 @@ function screen_close(),
 	Screen('CloseAll');
 	ShowCursor;
 	fclose('all');
+	ListenChar(0);
 	Priority(0);
 end

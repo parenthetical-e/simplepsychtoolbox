@@ -12,7 +12,7 @@ function [acc,rt,resp] = get_resp(corr_resp,acceptable_resps,onset_time,max_time
 %		a float.
 % OUT
 %  acc: accuracy - {0,1}
-%  rt: Reaction time in seconds (float).
+%  rt: Reaction time in seconds.
 %  resp: The response, a character
 
 
