@@ -11,9 +11,9 @@ function [acc,rt,resp] = get_resp(corr_resp,acceptable_resps,onset_time,max_time
 %  max_time: how long in seconds should the function wait for a response, 
 %		a float.
 % OUT
-%  acc: accuracy - {0,1}
+%  acc: Accuracy - {0,1}
 %  rt: Reaction time in seconds.
-%  resp: The response, a character
+%  resp: The response.
 
 
 	%% Poll for a response, stops on first keyIsDown

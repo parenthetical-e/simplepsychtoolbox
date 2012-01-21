@@ -11,9 +11,9 @@ function [acc,rt,resp] = get_resp_INC(corr_resp,acceptable_resps,onset_time,max_
 %  max_time: how long in seconds should the function wait for a response, 
 %		a float.
 % OUT
-%  acc: accuracy - {0,1}
-%  rt: Reaction time in seconds (float).
-%  resp: The response, a character
+%  acc: Accuracy - {0,1}
+%  rt: Reaction time in seconds.
+%  resp: The response
 % 
 % This is a special response collection function for the Intermountain 
 % Neuroimaging Consortium (INC) facility at U.C. Boulder.  It works
@@ -37,7 +37,13 @@ function [acc,rt,resp] = get_resp_INC(corr_resp,acceptable_resps,onset_time,max_
 	stop_time = onset_time + max_time;
 	while GetSecs < stop_time,
 		if CharAvail,
-			resp = GetChar;
+			resp = GetChar('getExtendedData',0);
+				% From help GetChar:
+				% 'By setting getExtendedData to 0, all extended 
+				% timing/modifier information will not be collected and
+				%  "when" will be returned empty.  This speeds up calls
+				%  to this function.'
+				
 			if strfind(acceptable_resps, resp),
 				rt = GetSecs - onset_time;
 					% if the response is acceptable, 
