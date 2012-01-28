@@ -29,17 +29,16 @@ function function_tester(),
 	try,
 		write_msg(n_sec,msg,fontsize,xoff,yoff,window,coords,colors);
 			% Writes 'This is a fun and comfortable place to test.' 
-			% onto the screen for 10 seconds (n_sec) in size 16 font
+			% onto the screen for 2 seconds (n_sec) in size 16 font
 			% with the text moved left 200 pixels so it sits in the center 
 			% of the screen.
 			% 
 			% To undersand how this funtion works try changing the variables 
-			% above preferably one at a time (e.g. what happens if you set 
-			% xoff to 0 instead.).
+			% above (e.g. what happens if you set xoff to 0 instead.).
 			% 
-			% For berevity's sake this would have done the same thing 
-			% (exception is that the 'Brevity!' is printed instead):
-			% write_msg(10,'Brevity!',16,-200,0,window,coords,colors);
+			% For berevity's sake the below would have done the same thing 
+			% (exception is that the 'Brevity!' is printed instead of msg):
+			% write_msg(2,'Brevity!',16,-200,0,window,coords,colors);
 	catch err,
 		disp('Dying gracefully...');
 		screen_close();
@@ -55,7 +54,7 @@ function function_tester(),
 	% 	write_msg(0,'Hit 5',fontsize,xoff,yoff,window,coords,colors);
 	% 	ttl_release_INC(fid,'HIT',0);
 	% 	write_msg(n_sec,msg,fontsize,xoff,yoff,window,coords,colors);
-	% catch,
+	% catch err,
 	% 	disp('Dying gracefully...');
 	% 	fclose(fid);
 	% 	screen_close();

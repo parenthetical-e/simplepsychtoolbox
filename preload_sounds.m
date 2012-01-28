@@ -1,4 +1,4 @@
-function [pid, sounds_data] = preload_sounds(sound_dir_name),
+function [pid sounds_data] = preload_sounds(sound_dir_name),
 % Prereads all the sound files sound_dir_name into a struct named sounds_data.
 % 
 % [pid, sounds_data] = preload_sounds(sound_dir_name);

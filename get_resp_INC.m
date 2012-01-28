@@ -1,4 +1,4 @@
-function [acc,rt,resp] = get_resp_INC(corr_resp,acceptable_resps,onset_time,max_time),
+function [acc rt resp] = get_resp_INC(corr_resp,acceptable_resps,onset_time,max_time),
 % Detect acceptable single key presses from the INC response box, sampling every 0.001 seconds.
 %
 %  [acc,rt,resp] = get_resp_INC(corr_resp,acceptable_resps,onset_time,max_time);

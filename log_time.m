@@ -4,7 +4,6 @@ function log_time(fid,comment),
 % IN
 % 	fid: a file handle
 % 	comment: a character array that will be written with the time.
-% 	mode: determines whether the write is 'async' or 'sync', see fprintf().
 
 	fprintf(fid,'%s\t',num2str(GetSecs));
 	fprintf(fid,'%s\n',comment);

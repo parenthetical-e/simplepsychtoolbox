@@ -1,4 +1,4 @@
-function [window,screenRect,colors] = screen_init(dbug),
+function [window screenRect colors] = screen_init(dbug),
 % This script does many (hopefully all) the common things needed to initialize any psychtoolbox/Screen session.
 %
 % Call early in an experimental setup.
