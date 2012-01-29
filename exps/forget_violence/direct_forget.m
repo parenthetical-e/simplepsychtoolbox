@@ -1,7 +1,17 @@
 function direct_forget(sub_num,word_file,N),
-% Display word from file followed by a memory instruction: 'Remeber' or 'Forget'
+% Display word from file followed by a memory instruction: 'Remeber' or 'Forget'.
 % 
+% This script reproduces the training portion of Nowika et al (2011), 
+% Forgetting of Emotional Information Is Hard: An fMRI Study of Directed 
+% Forgetting, Cereb. Cortex (2011) 21 (3): 539-549.
 % 
+% Except words are used in place of images.  It was created to see what effect 
+% violence (seperate from valence and arosal) has on directed forgetting.
+% 
+% IN
+%  sub_num: the subject number
+%  word_file: a text file formated like words.txt
+%  N the number of trials to run.
 
 	%% USER DEFINITIONS %%
 	dbug = 1;
