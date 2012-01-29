@@ -1,5 +1,5 @@
 function memory_test(sub_num,instruct_word_file),
-% Display word from file followed by asking if that word was old or new.
+% Display word from file followed by querying if that word was old or new.
 % 
 % This script reproduces the testinf portion of Nowika et al (2011), 
 % Forgetting of Emotional Information Is Hard: An fMRI Study of Directed 

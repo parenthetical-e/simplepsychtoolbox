@@ -1,5 +1,18 @@
 function [instruct counter] = get_instruct(binarray,ii,counter),
-	% Randomly pick an instruction
+% Pseudorandomly returns 'Remember' of 'Forget' and a counter.  
+% 
+% IN
+%  binarray: a binary array where 1 (usally) means Remember oand 0 is Forget.
+%  counter: counts repeats of the same instruction from one invoation to the 
+%    next.  
+%  ii: in the trial index.  
+% 
+% OUT
+%  instruct: Either 'Remember' of 'Forget'
+%  counter: updated verion
+% 
+% NOTE: this function is not intended for use outside the forget_violence 
+% paradigm.
 	
 	R = 'Remember';
 	F = 'Forget';
