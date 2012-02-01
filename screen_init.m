@@ -32,6 +32,7 @@ function [window screenRect colors] = screen_init(dbug),
 		Screen('Preference', 'SkipSyncTests',1);
 		[window,screenRect] = Screen('OpenWindow',0,0,[1,1,600,600]);
 	else,
+		Screen('Preference', 'SkipSyncTests',1);
 		[window,screenRect] = Screen('OpenWindow',0,0);
 	end
 

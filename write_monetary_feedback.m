@@ -26,7 +26,7 @@ function write_monetary_feedback(n_secs,acc,rt,gain,lose,window,coords,colors),
 		msg = ['Lose $', num2str(lose)];
 		col = colors.red;
 	end
-	write_color_msg(n_secs,msg,40,col,-100,0,window,coords);
+	write_color_msg(n_secs,msg,40,-100,0,window,coords,col);
 		% Display feedback in 30 pt font for n_secs
 		% if no matches diplay 'Error', which is very 
 		% unlikely.

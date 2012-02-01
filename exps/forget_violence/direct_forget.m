@@ -75,7 +75,7 @@ function direct_forget(sub_num,word_file,N),
 		paint_fixation(1.5,window,coords,colors);
 		
 		% Get the memory instruction and write it onscreen
-		[instruct,counter] = get_instruct(instruct_array,ii,counter);
+		[instruct counter] = get_instruct(instruct_array,ii,counter);
 		write_msg(1.5,instruct,36,-60,-10,window,coords,colors);
 		
 		% Log the trial count, the word, and the instruction

@@ -24,6 +24,7 @@ function function_tester(),
 	xoff = -200;
 	yoff = 0;
 	
+	
 	% Using try so when something goes wrong in your testinf
 	% Screen etc can be cleaned up
 	try,

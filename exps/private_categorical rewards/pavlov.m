@@ -1,4 +1,4 @@
-function pavlov(params_file),
+function pavlov(params_file,TR),
 % Ss learn to associate two II categories seperatly with gains and losses.
 %
 % Displays a coaster (parameterized in each row pf params_file) 
@@ -10,29 +10,35 @@ function pavlov(params_file),
 % Note: to turn on debuging mode set 'dbug' to 1 in this .m file.
 
 	%% USER DEFINITIONS %%
-	dbug = 1;
+	dbug = 0;
 	%% ===========
 
-	[window,screenRect,colors] = screen_init(dbug);
-	coords = define_coords(window,screenRect)
-	try,
-		stim_params = load(params_file);
-	catch,
-		error(['Could not read ' params_file '.']);
-	end 
+	offset = 0.5;
+	TR_adj = TR - offset;
+		%% Decrement TR to allow a gap between stim offsets and ...
+		%% ttl_release_INC() calls
 	
-	write_countdown(5,window,coords,colors);
+	[window,screenRect,colors] = screen_init(dbug);
+	coords = define_coords(window,screenRect);
+	[fid_ttl,ttl_file_name] = create_log(['ttl_' params_file]);
+	
+	stim_params = load(params_file);	
+
+	write_msg(TR_adj,'Hi. Are you ready?',40,-100,0,window,coords,colors);
+	ttl_release_INC(fid_ttl,'WAITING...');
+	write_countdown(10,window,coords,colors);
+
+	ttl_release_INC(fid_ttl,'START_LOOP');
 	for cnt=1:size(stim_params,1),
+		
+		log_time(fid_ttl,'*****');
 		row = stim_params(cnt,:);
-
-		paint_fixation(1,window,coords,colors);
-
+				
 		%% Show disc then wait 1 sec and 
 		%% display the reward associated with it.
 		%% Then wait half a second.
-		paint_coaster(1,row,window,coords,colors);
-		paint_nothing(0.5,window,coords,colors);
-		
+		log_time(fid_ttl,'COASTER');
+		paint_coaster(TR_adj*2,row,window,coords,colors);
 		%% Use data in row to decide whether to display 
 		%% a gain or loss; rt is a dummy variable here.
 		rt = 1;
@@ -41,7 +47,17 @@ function pavlov(params_file),
 		elseif row(5) == -1,
 			acc = 0;
 		end
-		write_monetary_feedback(1,acc,rt,1,1,window,coords,colors);
+		
+		paint_nothing(offset*2,window,coords,colors);	
+			%% Delay
+		
+		log_time(fid_ttl,'FEEDBACK');
+		write_monetary_feedback(TR_adj,acc,rt,1,1,window,coords,colors);
+		
+		log_time(fid_ttl,'ITI');
+		paint_fixation(0,window,coords,colors);
+		
+		ttl_release_INC(fid_ttl,'*** TTL ***');
 	end
 	screen_close();
 end

@@ -1,0 +1,9 @@
+pavlov:
+ 	A: 3 TR/trial * 90 trials = 270 TR (out) := 280
+	B: 3 TR/trial * 90 trials = 270 TR (in) := 280
+	
+run: 
+	371 TR total : = 380
+
+localizer:
+	180 trials + 95 jit = 275 := 280

@@ -1,14 +1,11 @@
-function setup_cat_r(sub_code,num_pavlov),
+function create_run_files(sub_code,num_pavlov),
 	if num_pavlov > 240,
 		disp('num_pavlov can not exceed 240.')
 		return
 	end
 
-	try,
-		stim = textread('ii_stim.dat');
-	catch,
-		disp('Could not open of find ii_stim.dat')
-	end
+
+	stim = textread('ii_stim.dat');
 
 	map_1_2_to_reward = randsample(2,2);
 	r_plus = map_1_2_to_reward(1);
@@ -68,7 +65,7 @@ function setup_cat_r(sub_code,num_pavlov),
 	%% Create the trial list w/ 6 conds, 30 trials per
 	%% Find all tree stim and randomly grab 6.
 	org_dir = pwd();
-	cd('./allMedia/');
+	cd('./imgs/');
 	stims = dir('tree*.jpg');
 	stims_to_use = struct([]);
 	use_index = randsample(size(stims,1),6)
@@ -84,17 +81,21 @@ function setup_cat_r(sub_code,num_pavlov),
 	end
 	fid = fopen(f_name,'a+');
 
-	%% Trials coded as 1, q is the right answer,
-	%% so randomly map to one of the first 3 stims.
-	triallist = randsample(2,180,true);
-	for cnt=1:size(triallist),
+	triallist = [1 1 4 4 6 0 4 2 4 1 0 0 0 0 5 4 5 1 5 5 3 6 6 0 0 2 2 3 3 1 3 2 4 2 2 6 0 5 3 1 2 2 0 4 3 0 0 6 5 6 6 5 1 0 0 5 5 2 2 6 2 0 0 0 6 6 5 0 0 0 0 4 6 4 5 6 4 0 0 0 0 3 3 4 2 5 5 1 0 3 3 1 1 0 6 1 5 3 3 0 4 6 0 0 0 1 2 2 0 5 0 4 4 4 3 3 2 0 1 0 0 0 4 4 0 0 2 1 6 6 2 4 4 1 1 1 5 4 0 6 0 3 3 5 5 4 2 1 1 1 6 1 1 0 2 0 0 6 5 6 0 3 4 3 3 6 4 0 6 6 6 1 1 3 6 3 0 5 5 3 0 0 0 2 2 2 3 2 6 3 5 5 0 1 0 2 5 2 4 1 4 4 4 0 5 5 6 0 3 4 0 5 0 0 6 1 3 5 0 3 0 0 1 6 3 0 2 2 0 5 5 2 5 0 1 4 1 2 0 0 3 0 0 1 3 2 1 4 0 3 5 0 0 4 0 5 2 6 6 2 1 6 0 2 3 3 6 4 4 2];
+	%% List was created with Kao's GA.  DO NOT ALTER.
+	
+	response_assign = randsample([4 6],2);	
+	for cnt=1:size(triallist,2),
 		tr = triallist(cnt);
-		if tr == 1,
-			fprintf(fid,'%s\t',stims_to_use(randsample(1:3,1)).name);
-			fprintf(fid,'%s\n','q');
+		if tr == 0,
+			fprintf(fid,'%s\t','0');
+			fprintf(fid,'%s\n','0');
+		elseif tr <= 3,
+			fprintf(fid,'%s\t',stims_to_use(tr).name);
+			fprintf(fid,'%s\n',num2str(response_assign(1)));
 		else,
-			fprintf(fid,'%s\t',stims_to_use(randsample(4:6,1)).name);
-			fprintf(fid,'%s\n','w');
+			fprintf(fid,'%s\t',stims_to_use(tr).name);
+			fprintf(fid,'%s\n',num2str(response_assign(2)));
 		end
 	end
 	fclose(fid);
