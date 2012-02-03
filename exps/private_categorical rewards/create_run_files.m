@@ -4,7 +4,6 @@ function create_run_files(sub_code,num_pavlov),
 		return
 	end
 
-
 	stim = textread('ii_stim.dat');
 
 	map_1_2_to_reward = randsample(2,2);
@@ -12,18 +11,18 @@ function create_run_files(sub_code,num_pavlov),
 	r_minus = map_1_2_to_reward(2);
 
 	rand_rows = randperm(600);
-	pavlov_rows = rand_rows(1:num_pavlov);
-	cat_rows = rand_rows(num_pavlov+1:end);
+	pavlov_rows_A = rand_rows(1:num_pavlov/2);
+	pavlov_rows_B = rand_rows((num_pavlov/2)+1:num_pavlov);
 	
-	%% Create the pavlov file
-	f_name = [num2str(sub_code) '_' num2str(num_pavlov) '_pavlov.dat'];
-	if exist(f_name, 'file'),
-		delete(f_name);  
-		disp(['Deleting ' f_name]);
+	% Create the pavlov file A
+	f_name_A = [num2str(sub_code) '_' num2str(num_pavlov/2) '_pavlov_A.dat'];
+	if exist(f_name_A, 'file'),
+		delete(f_name_A);  
+		disp(['Deleting ' f_name_A]);
 	end
-	fid = fopen(f_name,'a+');
+	fid = fopen(f_name_A,'a+');
 
-	for row_cnt=pavlov_rows,
+	for row_cnt=pavlov_rows_A,
 		row = stim(row_cnt,:);
 		if row(1) == r_plus,
 			fprintf(fid,'%f\t',row(1:4));
@@ -34,9 +33,31 @@ function create_run_files(sub_code,num_pavlov),
 		end
 	end
 	fclose(fid);
+	
+	% Create the pavlov file
+	f_name_B = [num2str(sub_code) '_' num2str(num_pavlov/2) '_pavlov_B.dat'];
+	if exist(f_name_B, 'file'),
+		delete(f_name_B);  
+		disp(['Deleting ' f_name_B]);
+	end
+	fid = fopen(f_name_B,'a+');
 
-	%% Create the correct/incorrect (1/0)
-	%% files for category training.
+	for row_cnt=pavlov_rows_B,
+		row = stim(row_cnt,:);
+		if row(1) == r_plus,
+			fprintf(fid,'%f\t',row(1:4));
+			fprintf(fid,'%i\n',1);
+		elseif row(1) == r_minus,
+			fprintf(fid,'%f\t',row(1:4));
+			fprintf(fid,'%i\n',-1);
+		end
+	end
+	fclose(fid);
+	
+
+	% Create the correct/incorrect (1/0)
+	% files for category training.
+	cat_rows = rand_rows(num_pavlov+1:end);
 	f_name_0 =  [num2str(sub_code) '_' num2str(num_pavlov) '_cat_0.dat'];
 	f_name_1 =  [num2str(sub_code) '_' num2str(num_pavlov) '_cat_1.dat'];
 	if exist(f_name_0, 'file'),
@@ -47,7 +68,7 @@ function create_run_files(sub_code,num_pavlov),
 		delete(f_name_1);
 		disp(['Deleting ' f_name_1]);
 	end
-	fid0 = fopen(f_name_0,'a+');	
+	fid0 = fopen(f_name_0,'a+');
 	fid1 = fopen(f_name_1,'a+');
 	for row_cnt=cat_rows,
 		row = stim(row_cnt,:);
@@ -62,8 +83,8 @@ function create_run_files(sub_code,num_pavlov),
 	fclose(fid0);
 	fclose(fid1);
 
-	%% Create the trial list w/ 6 conds, 30 trials per
-	%% Find all tree stim and randomly grab 6.
+	% Create the trial list w/ 6 conds, 30 trials per
+	% Find all tree stim and randomly grab 6.
 	org_dir = pwd();
 	cd('./imgs/');
 	stims = dir('tree*.jpg');
@@ -84,7 +105,7 @@ function create_run_files(sub_code,num_pavlov),
 	triallist = [1 1 4 4 6 0 4 2 4 1 0 0 0 0 5 4 5 1 5 5 3 6 6 0 0 2 2 3 3 1 3 2 4 2 2 6 0 5 3 1 2 2 0 4 3 0 0 6 5 6 6 5 1 0 0 5 5 2 2 6 2 0 0 0 6 6 5 0 0 0 0 4 6 4 5 6 4 0 0 0 0 3 3 4 2 5 5 1 0 3 3 1 1 0 6 1 5 3 3 0 4 6 0 0 0 1 2 2 0 5 0 4 4 4 3 3 2 0 1 0 0 0 4 4 0 0 2 1 6 6 2 4 4 1 1 1 5 4 0 6 0 3 3 5 5 4 2 1 1 1 6 1 1 0 2 0 0 6 5 6 0 3 4 3 3 6 4 0 6 6 6 1 1 3 6 3 0 5 5 3 0 0 0 2 2 2 3 2 6 3 5 5 0 1 0 2 5 2 4 1 4 4 4 0 5 5 6 0 3 4 0 5 0 0 6 1 3 5 0 3 0 0 1 6 3 0 2 2 0 5 5 2 5 0 1 4 1 2 0 0 3 0 0 1 3 2 1 4 0 3 5 0 0 4 0 5 2 6 6 2 1 6 0 2 3 3 6 4 4 2];
 	%% List was created with Kao's GA.  DO NOT ALTER.
 	
-	response_assign = randsample([4 6],2);	
+	response_assign = randsample([1 6],2);	
 	for cnt=1:size(triallist,2),
 		tr = triallist(cnt);
 		if tr == 0,

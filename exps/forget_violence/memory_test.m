@@ -13,7 +13,7 @@ function memory_test(sub_num,instruct_word_file),
 %  word_file: a text file formated like words.txt
 
 	%% USER DEFINITIONS %%
-	dbug = 1;
+	dbug = 0;
 	%% =========== 
 
 	% 0. Make a Screen

@@ -1,0 +1,6 @@
+1	38	maggot	2.06	1.47	5.28	2.96	NV	None	0	1.9833	q
+2	42	hostile	2.73	1.5	6.44	2.28	V	None	1	0.88332	p
+3	16	panic	3.12	1.84	7.02	2.02	NV	None	0	0.48776	q
+4	49	revolver	4.02	2.44	5.55	2.39	V	None	1	0.65779	p
+5	13	destruction	3.16	2.44	5.82	2.71	V	None	0	0.59103	q
+6	45	penalty	2.83	1.56	5.1	2.31	NV	None	1	0.55857	p

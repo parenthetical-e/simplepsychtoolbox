@@ -1,9 +1,12 @@
 pavlov:
- 	A: 3 TR/trial * 90 trials = 270 TR (out) := 280
+ 	A: 3 TR/trial * 90 trials = 270 TR (out) := 280 CHECK TIME AND FIX
 	B: 3 TR/trial * 90 trials = 270 TR (in) := 280
 	
 run: 
-	371 TR total : = 380
+	371 TR total : = 380 (way short, eval)
 
 localizer:
-	180 trials + 95 jit = 275 := 280
+	180 trials + 95 jit = 275 := 280 (FIX: add 5 TR)
+	
+	
+NOTE: code response as 1 and 6 (not 4 and6)

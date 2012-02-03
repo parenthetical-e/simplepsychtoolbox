@@ -14,7 +14,7 @@ function direct_forget(sub_num,word_file,N),
 %  N the number of trials to run.
 
 	%% USER DEFINITIONS %%
-	dbug = 1;
+	dbug = 0;
 	%% =========== 
 	
 	if mod(N,2) > 0,
