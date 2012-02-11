@@ -5,7 +5,7 @@ function [coords] = define_coords(window,screenRect)
 
 	coords = {}; % a struct is made
 	
-	coords.visual_angle_in_degrees = 6; 
+	coords.visual_angle_in_degrees = 8; 
 	coords.dist_to_screen_cm = 76;
 
 	coords.xc = screenRect(3)/2; 

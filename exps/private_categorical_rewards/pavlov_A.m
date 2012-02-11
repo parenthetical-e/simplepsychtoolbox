@@ -1,4 +1,4 @@
-function pavlov_out(params_file,TR),
+function pavlov_A(params_file,TR),
 % Ss learn to associate two II categories seperatly with gains and losses.
 %
 % Displays a coaster (parameterized in each row pf params_file) 
@@ -24,11 +24,12 @@ function pavlov_out(params_file,TR),
 	
 	stim_params = load(params_file);	
 
-	write_msg(TR_adj,'Hi. Are you ready?',40,-100,0,window,coords,colors);
+	write_msg(0 ...
+	,'Hi. Are you ready?',40,-100,0,window,coords,colors);
 	ttl_release_INC(fid_ttl,'WAITING...');
 	write_countdown(10,window,coords,colors);
 
-	ttl_release_INC(fid_ttl,'START_LOOP');
+	log_time(fid_ttl,'START_LOOP');
 	for cnt=1:size(stim_params,1),
 		
 		log_time(fid_ttl,'*****');
@@ -57,7 +58,7 @@ function pavlov_out(params_file,TR),
 		log_time(fid_ttl,'ITI');
 		paint_fixation(0,window,coords,colors);
 		
-		WaitSecs(0.5);
+		WaitSecs(offset);
 		%ttl_release_INC(fid_ttl,'*** TTL ***');
 	end
 	screen_close();

@@ -1,4 +1,4 @@
-function pavlov(params_file,TR),
+function pavlov_B(params_file,TR),
 % Ss learn to associate two II categories seperatly with gains and losses.
 %
 % Displays a coaster (parameterized in each row pf params_file) 
@@ -24,16 +24,24 @@ function pavlov(params_file,TR),
 	
 	stim_params = load(params_file);	
 
-	write_msg(TR_adj,'Hi. Are you ready?',40,-100,0,window,coords,colors);
+	write_msg(0,'Hi. Are you ready?',40,-100,0,window,coords,colors);
 	ttl_release_INC(fid_ttl,'WAITING...');
 	write_countdown(10,window,coords,colors);
 
-	ttl_release_INC(fid_ttl,'START_LOOP');
+	ttl_release_INC(fid_ttl,'START');
 	for cnt=1:size(stim_params,1),
 		
-		log_time(fid_ttl,'*****');
 		row = stim_params(cnt,:);
 				
+		% As it was defined in my run of Kao's GA, jitter is in units of
+		% 2*TR (TR=1.5).  Make it so.
+		if strmatch(num2str(row(1)),'0'),
+			log_time(fid_ttl,'JITTER');
+			WaitSecs((TR*2)-offset);
+			ttl_release_INC(fid_ttl,'*** TTL ***');
+			continue;
+		end
+		
 		%% Show disc then wait 1 sec and 
 		%% display the reward associated with it.
 		%% Then wait half a second.

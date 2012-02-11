@@ -6,7 +6,9 @@ function run(trial_file,file_0,file_1,TR),
 		% Turn it on for useful debugging things
 		% where are the images files
 	img_dir = './imgs/';
-	accept_resps = ['4' '6'];
+	accept_resps = ['1' '6'];
+	
+	max_response_time = TR_adj*2;
 	%% --------------- %%	
 
 	
@@ -22,7 +24,8 @@ function run(trial_file,file_0,file_1,TR),
 
 	% Create the outging the data files
 	[fid_d data_file_name] = create_log(['data_' trial_file]);
-	[fid_ttl ttl_file_name] = create_log(['ttl_' trial_file]);
+	[fid_ttl ttl_file_name] = create_log( ...
+		['ttl_TR' num2str(TR) '_' trial_file]);
 	
 	% Preload the tree images
 	images_data = preload_images(img_dir);
@@ -35,7 +38,7 @@ function run(trial_file,file_0,file_1,TR),
 	%%%%%%%%%%%%%%%%%%%%%%%%
 	%% Start scanner *now* %
 	%%%%%%%%%%%%%%%%%%%%%%%%
-	write_msg(TR_adj,'Hi. Are you ready?',40,-100,0,window,coords,colors);
+	write_msg(0,'Hi. Are you ready?',40,-100,0,window,coords,colors);
 	ttl_release_INC(fid_ttl,'WAITING...');
 	write_countdown(10,window,coords,colors);
 
@@ -43,26 +46,29 @@ function run(trial_file,file_0,file_1,TR),
 	ttl_release_INC(fid_ttl,'START_LOOP');
 	for ii=1:size(trialset,1),
 		FlushEvents;
-		img_name = trialset{ii}
-		corr_resp = correct_resps{ii}
+		img_name = trialset{ii};
+		corr_resp = correct_resps{ii};
 		
-		% Test for jitter trials, leaving up the fixation
-		% if true.
+		% Test for jitter trials (an image name of '0'), 
+		% leaving up the fixation if true. 
+		% 
+		% As it was defined in my run of Kao's GA, 
+		% jitter is in units of
+		% 2*TR (TR=1.5).  Make it so.
 		if strmatch(img_name,'0'),
 			log_time(fid_ttl,'JITTER');
-			paint_fixation(TR_adj,window,coords,colors);
+			WaitSecs((TR*2)-offset);
 			ttl_release_INC(fid_ttl,'*** TTL ***');
 			continue;
 		end
 			
-		% Put up a tree stimulus. Wait 2* TR_adj for a response
+		% Put up a tree stimulus for (at most) max_response_time.
 		FlushEvents;
 		log_time(fid_ttl,'TREE');
 		[VBLTimestamp, onset_time] = paint_image(...
 				0,img_name,images_data,window,coords,colors);
 		[acc,rt,resp] = get_resp_INC(...
-				corr_resp,accept_resps,onset_time,TR_adj*2);
-		FlushEvents;
+				corr_resp,accept_resps,onset_time,max_response_time);
 		
 		% Feedback delay (2*offset)
 		log_time(fid_ttl,'FEEDBACK_DELAY');		
@@ -70,25 +76,28 @@ function run(trial_file,file_0,file_1,TR),
 		FlushEvents;
 		
 		% Display feedback.
-		log_time(fid_ttl,'FEEDBACK');		
-		if acc,
+		if acc,	
+			log_time(fid_ttl,'FEEDBACK_1');
 			cat_1(cnt_right,:);
 			paint_coaster(TR_adj,cat_1(cnt_right,:),window,coords,colors);
 			cnt_right = cnt_right + 1;
 		elseif rt > 0.001 && ~acc,
+			log_time(fid_ttl,'FEEDBACK_0');		
 			cat_0(cnt_wrong,:);
 			paint_coaster(TR_adj,cat_0(cnt_wrong,:),window,coords,colors);
 			cnt_wrong = cnt_wrong + 1;
 		else,
-			write_msg(TR_adj,'No response detected.',40,-100,0,window,coords,colors);
+			log_time(fid_ttl,'FEEDBACK_NR');
+			write_msg(TR_adj,'No response detected.', ...
+					40,-100,0,window,coords,colors);
 		end
 		FlushEvents;
 		
 		% Write out this trial's data..
-		fprintf(fid_d,'%i\t',ii);
+		fprintf(fid_d,'%u\t',ii);
 		fprintf(fid_d,'%s\t',trialset{ii})
 		fprintf(fid_d,'%s\t',correct_resps{ii})
-		fprintf(fid_d,'%i\t',acc);
+		fprintf(fid_d,'%u\t',acc);
 		fprintf(fid_d,'%f\t',rt);
 		fprintf(fid_d,'%s\t',resp);
 		if acc,
@@ -102,12 +111,27 @@ function run(trial_file,file_0,file_1,TR),
 			fprintf(fid_d,'%s\n','')
 		end
 		
-		% Wait for next TTL, 
-		% this is the minumum ITI.
-		log_time(fid_ttl,'ITI');		
-		paint_fixation(0,window,coords,colors);
+		
+		% Do some ITI related calcs. 
+		% 
+		% We need to add a end-of-trial delay so each trial takes the
+		% same amount of time.
+		% 
+		% rt bieng zero means no reponse was detected.  In this
+		% edge case the stim was onscreen for max_response_time.
+		% So iti_time need to be 0. If iti_time is less than offset, 
+		% zero it as well
+		iti_time = max_response_time - rt - offset;
+		if (rt == 0.0) || (iti_time < offset),
+			iti_time = 0;
+		end
+		
+		% Start ITI (i.e. fixation).
+		log_time(fid_ttl,'ITI');
+		paint_fixation(iti_time,window,coords,colors);
 		ttl_release_INC(fid_ttl,'*** TTL ***');
 	end
+	
 	fclose(fid_d);
 	fclose(fid_ttl);
 	screen_close();

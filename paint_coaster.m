@@ -5,7 +5,15 @@ function [VBLTimestamp onset_time] = paint_coaster(n_sec,stim_params,window,coor
 %
 % IN
 %  n_sec: how long in seconds it is onscreen.
-%  stim_params: parameters for the grating
+%  stim_params: parameters for the grating, formated as in ii_stim.dat,
+%    for example, 
+%    1	21.4584	47.84	-1
+%    the first column is 1 or 2 the category label,
+%    the next two cols are the acutal parameters,
+%    the final col is unkknwon but was left to be 
+%    comptably with the coaster parameter file provided 
+%    by B Speiring.
+%
 %  window,coords,colors: standard Screen() variables.
 % 
 % OUT
