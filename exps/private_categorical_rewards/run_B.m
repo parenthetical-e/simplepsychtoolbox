@@ -1,4 +1,4 @@
-function run_A(trial_file,file_0,file_1,TR),
+function run_B(trial_file,file_0,file_1,TR),
 	%% USER DEFINITIONS %%
 	offset = 0.5;
 	TR_adj = TR - offset;
@@ -30,10 +30,13 @@ function run_A(trial_file,file_0,file_1,TR),
 	% Preload the tree images
 	images_data = preload_images(img_dir);
 
-	%% Create iterators to track the last used row
-	%% for the two feedback files
-	cnt_right = 1;
-	cnt_wrong = 1;
+	% Create iterators to track the last used row
+	% for the two feedback files
+	cnt_right = 1+90;
+	cnt_wrong = 1+90;
+		%% up the count by 90 so we are sure
+		%% different feedback coasters from part 
+		%% A are used
 
 	%%%%%%%%%%%%%%%%%%%%%%%%
 	%% Start scanner *now* %
