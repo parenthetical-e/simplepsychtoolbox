@@ -1,6 +1,7 @@
+s101
 pavlov:
- 	A: 90 trials * (3 TR) = 270 + 10 = 290
-	B: 90 trials * (3 TR) = 270 + 10 = 290
+ 	A: 126 trials * (3 TR) = 270 + 10 = 290
+	54 trials (3 TR) + 36 jitter (2 TR) = 234 + 10, round 235
 	
 run: 
 	739 TR total
@@ -9,3 +10,17 @@ run:
 
 localizer:
 	54 trials (3 TR) + 36 jitter (2 TR) = 234 + 10, round 235
+
+
+s102 and on
+pavlov:
+ 	A: 126 trials * (3 TR) = 270 + 10 = 290
+	54 trials (3 TR) + 36 jitter (2 TR) = 234 + 10, round 235 + 2 
+	
+run: 
+	739 TR total
+	A: 367 + 10 = 377, round 380 + 10 = 390
+	B: 372 + 10 = 382, round 384 + 10 = 390
+
+localizer:
+	54 trials (3 TR) + 36 jitter (2 TR) = 234 + 10, round 235 + 2

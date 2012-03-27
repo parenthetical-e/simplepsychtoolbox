@@ -1,6 +1,6 @@
 This is a set of functions to (greatly, I hope) ease use of psychtoolbox (http://psychtoolbox.org/HomePage).
 
-Warning: has only been tested has on Matlab 7.4 running on OS X Lion (10.7.2) but should be very portable.
+Warning: has only been tested has on Matlab 2010A, running on OS X Lion (10.7.3) and Snow Leopard (10.6) but should be portable.
 
 # Installation: 
   1. Download latest version from,
@@ -11,7 +11,7 @@ Warning: has only been tested has on Matlab 7.4 running on OS X Lion (10.7.2) bu
   3. A working installation of psychtoolbox is (obviously) needed too.
 
 # Notes:
-  - [11/16/2011] While feature complete for this inital posting, such as it is, substantial testing and debugging is still needed. Once that is done this file will be updated.
+  - [11/16/2011] While feature complete for this initial posting, such as it is, substantial testing and debugging is still needed. Once that is done this file will be updated.
 
   - [11/21/2011] Functions have all received (at least) basic testing and seem to be working as intended.  For use information, see each functions own inline comments and the two experimental templates along, with their triallist creation mates (e.g. experimental_template_II.m along with create_trialist_II.m).
 

@@ -1,5 +1,5 @@
 function [instruct counter] = get_instruct(binarray,ii,counter),
-% Pseudorandomly returns 'Remember' of 'Forget' and a counter.  
+% Pseudorandomly returns 'Remember' of 'Forget' and a counter; The same is repeated at most 3 times.  
 % 
 % IN
 %  binarray: a binary array where 1 (usally) means Remember oand 0 is Forget.
@@ -9,7 +9,7 @@ function [instruct counter] = get_instruct(binarray,ii,counter),
 % 
 % OUT
 %  instruct: Either 'Remember' of 'Forget'
-%  counter: updated verion
+%  counter: updated version
 % 
 % NOTE: this function is not intended for use outside the forget_violence 
 % paradigm.

@@ -37,5 +37,5 @@ for $file (@files){
 	close FILE;
 }
 
-## TODO Try and run markdown.pl (if is in the PATH.
+## Try and run markdown.pl (if is in the PATH).
 

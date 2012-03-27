@@ -41,8 +41,8 @@ function direct_forget(sub_num,word_file,N),
 	violence = violence(random_index);
 	
 	words_mat = char(words);
-			%% Change words into a char array so all words occupy
-			%% the same amount of line space making centering the text easy
+		%% Change words into a char array so all words occupy
+		%% the same amount of line space making centering the text easy
 
 	% 2. Create a logging file for the words that are shown	
 	word_log = [num2str(sub_num) '_instruction_' word_file];
