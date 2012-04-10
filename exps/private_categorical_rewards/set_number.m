@@ -1,4 +1,4 @@
-N = 110
+N = 117
 N = num2str(N)
 
 TR = 1.5
@@ -19,6 +19,6 @@ rfa = [N '_run_trials_A.dat']
 
 rfb = [N '_run_trials_B.dat']
 % run_B(rfb,r0,r1,TR)
- LOCALIZER
+% LOCALIZER
 lc = [N '_54_localizer.dat']
 % localizer(lc,TR)
